@@ -236,6 +236,32 @@ Procedure:
     (15) sudo service apache2 reload
     (16) sudo service apache2 restart
 
+:* 11. Additional Changes for 2nd Commit
+    (1) sudo /etc/update-motd.d/90-updates-available (check #packages available to be updated)
+    (2) cat /etc/apt/sources.list (check the package list for update)
+    (3) sudo apt-get update
+    (4) sudo apt-get upgrade
+    (5) cat /etc/ssh/sshd_config | grep PermitRootLogin
+    (6) sudo nano /etc/ssh/sshd_config
+        PermitRootLogin prohibit-password -> no (safer option)
+
+        Note:PermitRootLogin (http://manpages.ubuntu.com/manpages/xenial/en/man5/sshd_config.5.html)
+         Specifies whether root can log in using ssh(1).  The argument must be “yes”,
+         “prohibit-password”, “without-password”, “forced-commands-only”, or “no”.  The
+         default is “prohibit-password”.
+
+         If this option is set to “prohibit-password” or “without-password”, password and
+         keyboard-interactive authentication are disabled for root.
+
+         If this option is set to “forced-commands-only”, root login with public key
+         authentication will be allowed, but only if the command option has been specified
+         (which may be useful for taking remote backups even if root login is normally not
+         allowed).  All other authentication methods are disabled for root.
+
+         If this option is set to “no”, root is not allowed to log in.
+
+    (7) sudo service ssh restart
+
 References:
  https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
  https://mudspringhiker.github.io/deploying-a-flask-web-app-on-lightsail-aws.html
